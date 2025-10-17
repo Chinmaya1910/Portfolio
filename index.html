@@ -1,380 +1,523 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chinmaya M.G. - From Developer to Product Leader</title>
+    <title>Chinmaya Mallappa Giriyappa - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        // Enable dark mode based on class
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a192f;
-            color: #ccd6f6;
-            cursor: none; /* Hide default cursor */
+            background-color: #f8fafc; /* A very light gray background */
+            color: #1a202c;
         }
-        .accent-color {
-            color: #64ffda;
+
+        .section-title {
+            @apply text-3xl font-bold text-gray-800 mb-8 text-center dark:text-white;
         }
-        .bg-accent {
-            background-color: #64ffda;
+        
+        .skill-card {
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        a, button, .btn {
-             cursor: none; /* Apply custom cursor to interactive elements */
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-        #cursor-dot {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: rgba(100, 255, 218, 0.7);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
-            z-index: 9999;
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.5);
+
+        .interest-card {
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        #cursor-dot.hovered {
-            width: 30px;
-            height: 30px;
-            background-color: rgba(100, 255, 218, 0.2);
+
+        .interest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .blinking-cursor {
-            font-weight: 300;
-            color: #64ffda;
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink {
-            from, to { color: transparent }
-            50% { color: #64ffda; }
-        }
-        .btn {
-            @apply px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded-md transition-all duration-300 ease-in-out;
-        }
-        .btn:hover {
-            @apply bg-[#64ffda] bg-opacity-10;
-        }
-        .section-heading {
-            @apply text-3xl md:text-4xl font-bold text-gray-200 mb-4 flex items-center;
-        }
-        .section-heading::after {
-            content: '';
-            @apply block h-[1px] bg-gray-600 w-full md:w-1/3 ml-4;
-        }
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .project-card {
-            perspective: 1000px;
-        }
-        .project-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
+
+        /* New styles for the project section */
+        .project-container {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             transform-style: preserve-3d;
         }
-        .project-card:hover .project-inner {
-            transform: rotateY(180deg);
+
+        .project-container:hover {
+            transform: perspective(1000px) rotateY(1deg) rotateX(1deg) scale(1.02);
         }
-        .project-front, .project-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            @apply rounded-lg p-6 bg-[#112240];
-        }
-        .project-back {
-            transform: rotateY(180deg);
-        }
-        .experience-tabs button {
-            @apply w-full text-left p-3 text-sm border-l-2 border-gray-700 hover:bg-[#112240] hover:text-accent-color focus:outline-none transition-all duration-300;
-        }
-        .experience-tabs button.active {
-            @apply border-accent-color text-accent-color bg-[#112240];
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
+
+        .tech-tag {
+            @apply bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full dark:bg-gray-600 dark:text-blue-300;
         }
     </style>
 </head>
-<body class="antialiased">
 
-    <!-- Custom Cursor -->
-    <div id="cursor-dot" class="hidden md:block"></div>
+<body class="bg-gray-50 dark:bg-gray-900">
 
-    <!-- Header / Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0a192f] bg-opacity-80 backdrop-blur-md shadow-lg">
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 dark:bg-gray-800">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold accent-color tracking-wider">
-                <a href="#hero">Chinmaya</a>
+            <a href="#" class="text-2xl font-bold text-gray-800 dark:text-white">Chinmaya M.G.</a>
+            <div class="flex items-center">
+                <div class="hidden md:flex space-x-6">
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">About Me</a>
+                    <a href="#experience" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Experience</a>
+                    <a href="#skills" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Skills</a>
+                    <a href="#projects" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Projects</a>
+                    <a href="#certificates" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Certificates</a>
+                    <a href="#interests" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Interests</a>
+                    <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Contact</a>
+                </div>
+                
+                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 ml-4">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05a1 1 0 00-1.414 1.414l.707.707a1 1 0 001.414-1.414l-.707-.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+
+                <div class="md:hidden ml-2">
+                     <button id="mobile-menu-button" class="text-gray-800 dark:text-white focus:outline-none">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                </div>
             </div>
-            <div class="hidden md:flex space-x-8 items-center text-sm">
-                <a href="#about" class="hover:accent-color transition duration-300">01. About</a>
-                <a href="#experience" class="hover:accent-color transition duration-300">02. Experience</a>
-                <a href="#projects" class="hover:accent-color transition duration-300">03. Projects</a>
-                <a href="#contact" class="hover:accent-color transition duration-300">04. Contact</a>
-                <a href="Mr.-Chinmaya-Mallappa-Giriyappa-FlowCV-Resume-20251017.pdf" target="_blank" class="btn !px-4 !py-2">Resume</a>
-            </div>
-             <button id="mobile-menu-button" class="md:hidden text-2xl z-50">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
         </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800">
+            <a href="#about" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">About Me</a>
+            <a href="#experience" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Experience</a>
+            <a href="#skills" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Skills</a>
+            <a href="#projects" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Projects</a>
+            <a href="#certificates" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Certificates</a>
+            <a href="#interests" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Interests</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Contact</a>
+        </div>
     </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-[#0a192f] z-40 flex flex-col items-center justify-center space-y-8 text-xl">
-        <a href="#about" class="mobile-link hover:accent-color transition duration-300">01. About</a>
-        <a href="#experience" class="mobile-link hover:accent-color transition duration-300">02. Experience</a>
-        <a href="#projects" class="mobile-link hover:accent-color transition duration-300">03. Projects</a>
-        <a href="#contact" class="mobile-link hover:accent-color transition duration-300">04. Contact</a>
-        <a href="Mr.-Chinmaya-Mallappa-Giriyappa-FlowCV-Resume-20251017.pdf" target="_blank" class="btn !text-lg mt-4">Resume</a>
-    </div>
-
-    <main class="container mx-auto px-6 md:px-16 lg:px-24">
+    <main>
         <!-- Hero Section -->
-        <section id="hero" class="min-h-screen flex flex-col justify-center items-start pt-24">
-            <p class="accent-color text-lg mb-4 fade-in-section">Hi, my name is</p>
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-gray-200 fade-in-section" style="transition-delay: 100ms;">Chinmaya M.G.</h1>
-            <h2 class="text-4xl sm:text-6xl lg:text-7xl font-black text-gray-400 mt-2 fade-in-section" style="transition-delay: 200ms;">
-                <span id="typing-effect"></span><span class="blinking-cursor">|</span>
-            </h2>
-            <p class="max-w-xl mt-6 text-lg text-gray-400 fade-in-section" style="transition-delay: 300ms;">
-                I'm a Software Developer with experience in designing and implementing scalable solutions. I'm skilled in supporting cross-functional initiatives and I'm now seeking to leverage my technical expertise in a product management role to create impactful, user-centric products.
-            </p>
-            <div class="mt-12 fade-in-section" style="transition-delay: 400ms;">
-                <a href="#projects" class="btn text-xl">Check out my work!</a>
+        <section id="home" class="bg-white py-20 md:py-32 dark:bg-gray-800">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight dark:text-white">Chinmaya Mallappa Giriyappa</h1>
+                <p class="mt-4 text-xl md:text-2xl text-blue-600 font-semibold dark:text-blue-400">Software Developer | Aspiring Manager</p>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-600 dark:text-gray-300">
+                    A Software Developer with experience in designing, developing and implementing scalable solutions, now transitioning towards managerial roles to lead teams in building innovative and impactful technology.
+                </p>
+                 <a href="#contact" class="mt-8 inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition duration-300">Get in Touch</a>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-24 fade-in-section">
-            <h2 class="section-heading"><span class="accent-color mr-2">01.</span>About Me</h2>
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-10">
-                <div class="md:col-span-3 text-gray-400 space-y-4 text-lg">
-                    <p>
-                        As a software developer, I've designed and built scalable backend systems, but my real passion lies in understanding the 'why' behind the code. I thrive on collaborating with diverse teams to translate business needs into technical realities, ensuring that the end product not only works flawlessly but also solves real user problems.
-                    </p>
-                    <p>
-                        My experience at More Retail Private Limited involved close collaboration with the product team, where I helped define requirements for customer-facing APIs and served as a technical liaison for the ONDC integration. This experience solidified my desire to move into a role where I can be more involved in the entire product lifecycle, from ideation to launch and beyond.
-                    </p>
-                     <p>
-                        Currently pursuing a Master's in Software Engineering and Management at Hochschule Heilbronn, I am actively seeking opportunities to apply my unique blend of technical acumen and product-focused thinking to a challenging product management role.
-                    </p>
-                </div>
-                <div class="md:col-span-2 flex items-center justify-center">
-                    <div class="w-64 h-64 rounded-lg bg-gray-700 relative group">
-                        <img src="https://placehold.co/400x400/0a192f/64ffda?text=Chinmaya" alt="Chinmaya M.G." class="rounded-lg w-full h-full object-cover z-10 relative group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
-                        <div class="absolute inset-0 border-2 border-accent-color rounded-lg translate-x-3 translate-y-3 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-300"></div>
+        <!-- About Me Section -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">About Me</h2>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/3">
+                         <img src="https://placehold.co/400x400/E2E8F0/4A5568?text=CMG" alt="Chinmaya Mallappa Giriyappa" class="rounded-full shadow-lg mx-auto">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 dark:text-gray-100">My Professional Story</h3>
+                        <p class="text-gray-600 mb-4 dark:text-gray-300 text-justify">
+                            I am a Software Developer skilled in supporting cross-functional initiatives, preparing executive-level reports and leveraging modern AI tools for analysis, content creation and communication. Currently pursuing a Master's in Software Engineering and Management at Hochschule Heilbronn to further enhance technical expertise. I am actively seeking working student opportunities in IT project management, product management and digital transformation initiatives.
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-300 text-justify">
+                           My journey in software development has provided me with a strong technical foundation and a deep understanding of the product lifecycle. I am now eager to leverage this experience in a leadership capacity, guiding teams to success and driving innovation.
+                        </p>
+                         <a href="#projects" class="mt-6 inline-block text-blue-600 font-semibold hover:underline dark:text-blue-400">View My Work <i class="fas fa-arrow-right ml-2"></i></a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="py-24 fade-in-section">
-            <h2 class="section-heading"><span class="accent-color mr-2">02.</span>Where I've Worked</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="experience-tabs md:col-span-1">
-                    <button class="tab-button active" data-target="#more-retail">More Retail Pvt. Ltd.</button>
-                </div>
-                <div class="md:col-span-3">
-                    <div id="more-retail" class="tab-content active">
-                        <h3 class="text-xl font-bold text-gray-200">Software Development Engineer - 1 <span class="accent-color">@ More Retail</span></h3>
-                        <p class="text-sm text-gray-400 mb-4">July 2022 - August 2024</p>
-                        <ul class="space-y-3 text-gray-400 list-disc list-inside">
-                            <li>Served as a technical liaison for the ONDC integration, translating business requirements into technical solutions that doubled online transactions in the pilot phase.</li>
-                            <li>Managed the optimization of customer-facing APIs, collaborating with the product team to define requirements and improve API response performance by 25%.</li>
-                            <li>Led a digital transformation project to migrate a legacy application to a serverless AWS architecture, reducing infrastructure costs by 35%.</li>
-                            <li>Actively contributed as a backend developer to the ONDC project, enabling More to operate as a seller within the national e-commerce grid.</li>
-                        </ul>
+        <section id="experience" class="py-20 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="space-y-12">
+                    <!-- Experience 1 -->
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/4">
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">Software Development Engineer - 1</h3>
+                            <p class="text-gray-600 dark:text-gray-300">More Retail Private Limited</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Jul 2022 - Aug 2024 | Bengaluru, India</p>
+                        </div>
+                        <div class="md:w-3/4">
+                            <ul class="list-disc list-inside text-gray-600 space-y-2 dark:text-gray-300">
+                                <li class="text-justify">Managed the optimization of customer-facing APIs, collaborating with the product team to define requirements and implement backend enhancements. This initiative resulted in a 25% improvement in API response performance.</li>
+                                <li class="text-justify">Actively contributed as a backend developer to the ONDC (Open Network for Digital Commerce) integration project.</li>
+                                <li class="text-justify">Led a key digital transformation project to migrate a legacy application to a serverless AWS architecture, improving scalability and reducing infrastructure costs by 35%.</li>
+                                <li class="text-justify">Served as a technical liaison between development and business teams for the ONDC integration, translating business requirements into technical solutions that doubled online transactions in the pilot phase.</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Experience 2 -->
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/4">
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">Software Development Engineer - Intern</h3>
+                            <p class="text-gray-600 dark:text-gray-300">More Retail Private Limited</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Apr 2022 - Jul 2022 | Bengaluru, India</p>
+                        </div>
+                        <div class="md:w-3/4">
+                            <ul class="list-disc list-inside text-gray-600 space-y-2 dark:text-gray-300">
+                                <li class="text-justify">Contributed to preparing internal reports and API documentation for product and business teams.</li>
+                                <li class="text-justify">Gained hands-on experience in Python, Django and PostgreSQL by contributing to backend development.</li>
+                                <li class="text-justify">Collaborated in developing Django APIs for the company's customer facing application, enhancing functionality and user experience.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Skills Section -->
+        <section id="skills" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Skills</h2>
+        
+                <!-- Backend & APIs -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6 text-center">Backend &amp; APIs</h3>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-python text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Python</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-server text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Django</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-cogs text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">REST</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                             <i class="fas fa-project-diagram text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">GraphQL</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-database text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">PostgreSQL</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-database text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">MySQL</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-leaf text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">MongoDB</h4>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Cloud & DevOps -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6 text-center">Cloud &amp; DevOps</h3>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-aws text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">AWS</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-google text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Google Cloud</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-docker text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Docker</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-github text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">GitHub Actions</h4>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Project Management & Other Tools -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6 text-center">Project Management &amp; Other Tools</h3>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-tasks text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Agile &amp; Scrum</h4>
+                        </div>
+                         <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-people-arrows text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Stakeholder Communication</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-jira text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Jira</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-confluence text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Confluence</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-git-alt text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Git</h4>
+                        </div>
+                         <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-chart-line text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Process Optimization</h4>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Frontend & Design -->
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6 text-center">Frontend &amp; Design</h3>
+                     <div class="flex flex-wrap justify-center gap-6">
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-html5 text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">HTML</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-css3-alt text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">CSS</h4>
+                        </div>
+                        <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fab fa-figma text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Figma</h4>
+                        </div>
+                         <div class="skill-card bg-white p-4 rounded-lg shadow-md text-center dark:bg-gray-700 flex items-center space-x-3">
+                            <i class="fas fa-palette text-2xl text-blue-600 dark:text-blue-400"></i>
+                            <h4 class="text-md font-semibold dark:text-white">Adobe Suite</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-24 fade-in-section">
-            <h2 class="section-heading"><span class="accent-color mr-2">03.</span>Things I've Built (with a Product Lens)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-
-                <!-- Project 1 -->
-                <div class="project-card h-[450px]">
-                    <div class="project-inner">
-                        <div class="project-front flex flex-col justify-between border border-gray-700">
-                            <div>
-                                <h3 class="text-2xl font-bold text-gray-200 mb-2">ONDC Integration and Logs Contribution</h3>
-                                <p class="text-gray-400 mb-4">Enabled More Retail to operate as a seller on the Open Network for Digital Commerce, India's national e-commerce grid.</p>
-                                <div class="flex flex-wrap gap-2 text-sm">
-                                    <span class="bg-gray-700 px-2 py-1 rounded accent-color">Python</span>
-                                    <span class="bg-gray-700 px-2 py-1 rounded accent-color">Django</span>
-                                    <span class="bg-gray-700 px-2 py-1 rounded accent-color">AWS Lambda</span>
-                                    <span class="bg-gray-700 px-2 py-1 rounded accent-color">API Gateway</span>
+        <section id="projects" class="py-20 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Projects I've Built</h2>
+                <div class="space-y-16">
+                    <!-- Project 1 -->
+                    <div class="project-container">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <!-- Left Panel -->
+                            <div class="p-8 rounded-lg bg-gray-100 dark:bg-gray-700 h-full">
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">ONDC Integration & Contribution</h3>
+                                <p class="mt-2 text-gray-600 dark:text-gray-300">Enabled More Retail to integrate as a seller on the Open Network for Digital Commerce, expanding market reach and sales channels by tapping into a national digital commerce grid.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Django</span>
+                                    <span class="tech-tag">AWS Lambda</span>
+                                    <span class="tech-tag">API Gateway</span>
+                                </div>
+                                <p class="mt-6 text-sm text-gray-500 dark:text-gray-400">Hover to see my Product Thinking →</p>
+                            </div>
+                            <!-- Right Panel -->
+                            <div class="project-vision p-8 rounded-lg bg-blue-50 dark:bg-gray-900 h-full border border-gray-200 dark:border-gray-700">
+                                <div class="vision-initial">
+                                    <h4 class="text-xl font-bold dark:text-white">The Product Vision</h4>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-2">To seamlessly connect More Retail's infrastructure with the ONDC network, enabling interoperability across diverse e-commerce platforms and unlocking new revenue streams through a serverless, scalable architecture.</p>
+                                </div>
+                                <div class="vision-hover hidden">
+                                    <h4 class="text-xl font-bold dark:text-white">The Product Vision</h4>
+                                    <p class="mt-4 text-gray-600 dark:text-gray-300"><strong class="text-gray-800 dark:text-gray-100">Problem:</strong> Traditional e-commerce is siloed, limiting retailer reach. More Retail needed to break into a larger, open network to expand its market presence and customer base.</p>
+                                    <p class="mt-2 text-gray-600 dark:text-gray-300"><strong class="text-gray-800 dark:text-gray-100">PM Hat:</strong> The key metric was successful transactions via ONDC. I would define the roadmap for integration, starting with core order fulfillment and expanding to include inventory synchronization and logistics. Success was measured by transaction volume and new partnerships formed.</p>
                                 </div>
                             </div>
-                            <div class="text-center font-bold text-gray-300 animate-pulse">Hover to see my Product Thinking →</div>
                         </div>
-                        <div class="project-back flex flex-col justify-center border border-gray-700">
-                             <h4 class="font-bold text-lg accent-color mb-2">The Product Vision</h4>
-                            <p class="text-sm text-gray-300">
-                                <strong>Problem:</strong> Expand market reach and sales channels by tapping into a national digital commerce network.<br/><br/>
-                                <strong>PM Hat:</strong> As a technical liaison, I translated business needs into tech solutions. I would define the MVP to focus on core order fulfillment. Success metrics would be 'transactions processed via ONDC' and 'new partnerships formed'. The roadmap would include inventory sync enhancements and integrating more buyer platforms.
-                            </p>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="project-container">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                             <!-- Left Panel -->
+                            <div class="p-8 rounded-lg bg-gray-100 dark:bg-gray-700 h-full">
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">Customer API Optimization</h3>
+                                <p class="mt-2 text-gray-600 dark:text-gray-300">Optimized customer-facing APIs by collaborating with the product team to enhance backend performance, resulting in a 25% improvement in API response times.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Django</span>
+                                    <span class="tech-tag">PostgreSQL</span>
+                                    <span class="tech-tag">Performance Tuning</span>
+                                </div>
+                                <p class="mt-6 text-sm text-gray-500 dark:text-gray-400">Hover to see my Product Thinking →</p>
+                            </div>
+                            <!-- Right Panel -->
+                            <div class="project-vision p-8 rounded-lg bg-blue-50 dark:bg-gray-900 h-full border border-gray-200 dark:border-gray-700">
+                                <div class="vision-initial">
+                                    <h4 class="text-xl font-bold dark:text-white">The Product Vision</h4>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-2">To elevate the user experience and prevent potential revenue loss by systematically identifying and resolving performance bottlenecks within critical customer-facing APIs, ensuring a faster and more reliable service.</p>
+                                </div>
+                                <div class="vision-hover hidden">
+                                    <h4 class="text-xl font-bold dark:text-white">The Product Vision</h4>
+                                    <p class="mt-4 text-gray-600 dark:text-gray-300"><strong class="text-gray-800 dark:text-gray-100">Problem:</strong> Slow API response times were negatively impacting the user experience and potentially causing lost sales during peak traffic.</p>
+                                    <p class="mt-2 text-gray-600 dark:text-gray-300"><strong class="text-gray-800 dark:text-gray-100">PM Hat:</strong> The goal was a 25% performance boost. I'd start by identifying endpoints with the highest latency. The roadmap would include implementing a caching layer (Redis), optimizing database queries, and exploring GraphQL for more efficient data fetching.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Project 2 -->
-                <div class="project-card h-[450px]">
-                    <div class="project-inner">
-                        <div class="project-front flex flex-col justify-between border border-gray-700">
-                             <div>
-                                <h3 class="text-2xl font-bold text-gray-200 mb-2">Customer API Optimization</h3>
-                                <p class="text-gray-400 mb-4">Optimized customer-facing APIs by collaborating with the product team to enhance backend performance.</p>
-                                <div class="flex flex-wrap gap-2 text-sm">
-                                    <span class="bg-gray-700 px-2 py-1 rounded accent-color">Python</span>
-                                    <span class="bg-gray-700 px-2 py-1 rounded accent-color">Django</span>
-                                    <span class="bg-gray-700 px-2 py-1 rounded accent-color">PostgreSQL</span>
-                                    <span class="bg-gray-700 px-2 py-1 rounded accent-color">Performance Tuning</span>
-                                </div>
-                            </div>
-                             <div class="text-center font-bold text-gray-300 animate-pulse">Hover to see my Product Thinking →</div>
-                        </div>
-                        <div class="project-back flex flex-col justify-center border border-gray-700">
-                             <h4 class="font-bold text-lg accent-color mb-2">The Product Vision</h4>
-                            <p class="text-sm text-gray-300">
-                                <strong>Problem:</strong> Slow API response times were negatively impacting the user experience and potentially causing lost sales.<br/><br/>
-                                <strong>PM Hat:</strong> The goal was a 25% performance boost. I'd start by analyzing which endpoints had the highest traffic and longest response times to prioritize our efforts. The key metric is latency reduction. Future roadmap items would include implementing a caching layer and exploring GraphQL for more efficient data fetching.
-                            </p>
-                        </div>
+        <!-- Certificates Section -->
+        <section id="certificates" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Certificates</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <a href="#" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Advanced Python</h3>
+                        <p class="text-gray-500 dark:text-gray-400">LinkedIn</p>
+                    </a>
+                    <a href="#" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Python Essential Training</h3>
+                        <p class="text-gray-500 dark:text-gray-400">LinkedIn</p>
+                    </a>
+                    <a href="#" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Introduction to SQL</h3>
+                        <p class="text-gray-500 dark:text-gray-400">SimpliLearn</p>
+                    </a>
+                     <a href="#" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Artificial Intelligence Course</h3>
+                        <p class="text-gray-500 dark:text-gray-400">MYCAPTAIN</p>
+                    </a>
+                     <a href="#" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Graphic Design - Specialization</h3>
+                        <p class="text-gray-500 dark:text-gray-400">Coursera</p>
+                    </a>
+                     <a href="#" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Mastering Final Cut Pro</h3>
+                        <p class="text-gray-500 dark:text-gray-400">Coursera</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section id="interests" class="py-20 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Interests</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                     <div class="interest-card bg-blue-100 p-8 rounded-lg text-center dark:bg-gray-700">
+                        <i class="fas fa-table-tennis text-5xl text-blue-600 mb-4 dark:text-blue-400"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Table Tennis</h3>
+                    </div>
+                     <div class="interest-card bg-emerald-100 p-8 rounded-lg text-center dark:bg-gray-700">
+                        <i class="fas fa-biking text-5xl text-emerald-600 mb-4 dark:text-emerald-400"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Cycling</h3>
+                    </div>
+                     <div class="interest-card bg-amber-100 p-8 rounded-lg text-center dark:bg-gray-700">
+                        <i class="fas fa-hiking text-5xl text-amber-600 mb-4 dark:text-amber-400"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Hiking</h3>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-24 text-center fade-in-section">
-             <h2 class="text-2xl font-bold text-gray-300 mb-2">What's Next?</h2>
-            <h3 class="text-4xl md:text-5xl font-black accent-color mb-4">Get In Touch</h3>
-            <p class="max-w-xl mx-auto text-gray-400 text-lg mb-8">
-                I'm actively seeking product management or IT project management opportunities where I can leverage my technical background to build amazing products. My inbox is always open.
-            </p>
-            <a href="mailto:chinmaya1664@gmail.com" class="btn text-xl">Say Hello</a>
-
-            <div class="flex justify-center space-x-6 mt-16">
-                <a href="https://github.com/Chinmaya1910" target="_blank" class="text-gray-400 hover:accent-color transition duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-                <a href="https://www.linkedin.com/in/chinmaya-m-g" target="_blank" class="text-gray-400 hover:accent-color transition duration-300">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                 <h2 class="section-title">Contact Me</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mb-8 dark:text-gray-300">I'm always open to discussing new projects, creative ideas or opportunities to be part of an amazing team. Feel free to reach out to me.</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://github.com/Chinmaya1910" target="_blank" class="text-gray-600 hover:text-blue-600 transition duration-300 text-3xl dark:text-gray-400 dark:hover:text-blue-400">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/chinmaya-m-g" target="_blank" class="text-gray-600 hover:text-blue-600 transition duration-300 text-3xl dark:text-gray-400 dark:hover:text-blue-400">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                     <a href="mailto:chinmaya1664@gmail.com" class="text-gray-600 hover:text-blue-600 transition duration-300 text-3xl dark:text-gray-400 dark:hover:text-blue-400">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="text-center py-6">
-        <p class="text-gray-500 text-sm">Designed & Built by Chinmaya M.G.</p>
+    <footer class="bg-gray-800 text-white py-6 dark:bg-black">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-300 dark:text-gray-400">&copy; 2025 Chinmaya Mallappa Giriyappa. All Rights Reserved.</p>
+        </div>
     </footer>
 
     <script>
-        // --- Custom Cursor ---
-        const cursorDot = document.getElementById('cursor-dot');
-        const interactiveElements = document.querySelectorAll('a, button, .btn');
-
-        window.addEventListener('mousemove', e => {
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
-        });
-
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursorDot.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => cursorDot.classList.remove('hovered'));
-        });
-
-
-        // --- Typing Effect ---
-        const typingText = "I build products, from code to customer.";
-        const typingElement = document.getElementById('typing-effect');
-        let i = 0;
-        function typeWriter() {
-            if (i < typingText.length) {
-                typingElement.innerHTML += typingText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-             setTimeout(typeWriter, 800);
-        });
-
-
-        // --- Experience Tabs ---
-        const tabs = document.querySelectorAll('.tab-button');
-        const contents = document.querySelectorAll('.tab-content');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = document.querySelector(tab.dataset.target);
-                tabs.forEach(t => t.classList.remove('active', 'border-accent-color', 'text-accent-color', 'bg-[#112240]'));
-                tab.classList.add('active', 'border-accent-color', 'text-accent-color', 'bg-[#112240]');
-                contents.forEach(c => c.classList.remove('active'));
-                target.classList.add('active');
-            });
-        });
-
-
-        // --- Fade-in sections on scroll ---
-        const sections = document.querySelectorAll('.fade-in-section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // --- Mobile Menu Toggle ---
+        // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        const body = document.body;
 
-        const toggleMenu = () => {
-             mobileMenu.classList.toggle('hidden');
-             body.classList.toggle('overflow-hidden');
-             // Change icon
-             if (mobileMenu.classList.contains('hidden')) {
-                 mobileMenuButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>`;
-             } else {
-                 mobileMenuButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
-             }
-        };
-
-        mobileMenuButton.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
 
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Dark mode toggle script
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+            document.documentElement.classList.add('dark');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+            document.documentElement.classList.remove('dark')
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+
+        // New script for project hover effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectContainers = document.querySelectorAll('.project-container');
+
+            projectContainers.forEach(container => {
+                const initialVision = container.querySelector('.vision-initial');
+                const hoverVision = container.querySelector('.vision-hover');
+                const leftPanel = container.querySelector('.grid > div:first-child');
+
+                leftPanel.addEventListener('mouseenter', () => {
+                    if(initialVision && hoverVision){
+                        initialVision.style.display = 'none';
+                        hoverVision.style.display = 'block';
+                    }
+                });
+
+                leftPanel.addEventListener('mouseleave', () => {
+                     if(initialVision && hoverVision){
+                        initialVision.style.display = 'block';
+                        hoverVision.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
 
