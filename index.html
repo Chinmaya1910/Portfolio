@@ -63,8 +63,9 @@
                     <a href="#experience" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Experience</a>
                     <a href="#skills" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Skills</a>
                     <a href="#projects" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Projects</a>
-                    <a href="#certificates" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Certificates</a>
+                    <!-- <a href="#certificates" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Certificates</a> -->
                     <a href="#interests" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Interests</a>
+                    <a href="#resume" id="mobile-resume-nav-link" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Resume</a>
                     <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300 dark:text-white dark:hover:text-blue-400">Contact</a>
                 </div>
                 
@@ -364,7 +365,7 @@
         </section>
 
         <!-- Certificates Section -->
-        <section id="certificates" class="py-20">
+        <!-- <section id="certificates" class="py-20">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center dark:text-white">Certificates</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -380,10 +381,10 @@
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Introduction to SQL</h3>
                         <p class="text-gray-500 dark:text-gray-400">SimpliLearn</p>
                     </a>
-                     <!-- <a href="#" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
+                     <a href="#" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Artificial Intelligence Course</h3>
                         <p class="text-gray-500 dark:text-gray-400">MYCAPTAIN</p>
-                    </a> -->
+                    </a>
                      <a href="https://coursera.org/share/3a75f42b72a31e2ae8ce3bac83f52119" target="_blank" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 dark:bg-gray-700">
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Graphic Design - Specialization</h3>
                         <p class="text-gray-500 dark:text-gray-400">Coursera</p>
@@ -394,7 +395,7 @@
                     </a>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- Interests Section -->
         <section id="interests" class="py-20 bg-white dark:bg-gray-800">
@@ -442,6 +443,25 @@
             <p class="text-gray-300 dark:text-gray-400">&copy; 2025 Chinmaya Mallappa Giriyappa. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[100] flex justify-center items-center p-4 transition-opacity duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl h-full max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white">My Resume</h3>
+                <button id="resume-modal-close" class="text-2xl text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white">&times;</button>
+            </div>
+            <div class="flex-grow p-1 md:p-4 overflow-y-auto">
+                 <iframe src="Chinmaya-Mallappa-Giriyappa-FlowCV-Resume.pdf" class="w-full h-full" title="Chinmaya Giriyappa's Resume"></iframe>
+            </div>
+            <div class="p-4 border-t dark:border-gray-700 text-center">
+                 <a href="images/Chinmaya-Mallappa-Giriyappa-Resume.pdf" download class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition duration-300">
+                    <i class="fas fa-download mr-2"></i> Download
+                </a>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         // Mobile menu toggle
