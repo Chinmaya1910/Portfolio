@@ -95,6 +95,16 @@ if (stage && siteScript?.dataset.scene) {
   const poster = stage.querySelector('.scene-poster');
   const actionLabel = stage.querySelector('[data-action-label]');
   const signatureButton = stage.querySelector('[data-hero-action]');
+  const traceButton = stage.querySelector('[data-hero-trace]');
+  if (traceButton) {
+    traceButton.hidden = false;
+    traceButton.addEventListener('click', () => {
+      const active = traceButton.getAttribute('aria-pressed') !== 'true';
+      traceButton.setAttribute('aria-pressed', String(active));
+      stage.dataset.trace = String(active);
+      stage.dispatchEvent(new Event('tracechange'));
+    });
+  }
   if (signatureButton) {
     const fieldPoster = poster.getAttribute('src');
     const label = signatureButton.querySelector('[data-hero-label]');

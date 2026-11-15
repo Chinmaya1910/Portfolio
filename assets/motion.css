@@ -195,3 +195,102 @@
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
 }
+
+.signature-actions {
+  position: absolute;
+  z-index: 1;
+  right: clamp(10px, 2vw, 22px);
+  bottom: clamp(10px, 2vw, 22px);
+  left: clamp(10px, 2vw, 22px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  pointer-events: none;
+}
+.signature-actions .scene-button { position: static; pointer-events: auto; }
+.signature-actions [data-hero-trace] { background: #112443; border-color: #6d9ece; }
+.signature-actions [data-hero-trace]:hover { background: #1b3b63; }
+.signature-actions [data-hero-trace][aria-pressed="true"] {
+  background: #b7f3ff;
+  color: #102944;
+  border-color: #dbfaff;
+}
+.trace-poster {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  fill: none;
+  stroke: #b4f9ff;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.signature-stage[data-trace="true"]:not([data-ready]) .trace-poster { display: block; }
+.signature-stage[data-signature="field"] .trace-ordered,
+.signature-stage[data-signature="ordered"] .trace-field { display: none; }
+
+.project-snapshot { border-top: 1px solid var(--line); width: 100%; }
+.project-snapshot > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  font-size: .82rem;
+  font-weight: 680;
+  color: var(--accent-strong);
+}
+.project-snapshot > summary::-webkit-details-marker { display: none; }
+.project-snapshot > summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.project-snapshot[open] > summary::after { transform: translateY(2px) rotate(225deg); }
+.project-snapshot > p { margin: 0 0 4px; font-size: .86rem; line-height: 1.55; }
+
+.contact-email { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.copy-email { min-width: 96px; }
+.copy-feedback { position: absolute; top: 100%; left: 0; margin: 3px 0 0; font-size: .78rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Only decorate native navigation between pages on engines with view transitions. */
+  .query-art { view-transition-name: query-art; }
+  .ondc-art { view-transition-name: ondc-art; }
+  .simulation-art { view-transition-name: simulation-art; }
+  ::view-transition-group(query-art),
+  ::view-transition-group(ondc-art),
+  ::view-transition-group(simulation-art) {
+    animation-duration: var(--component-speed);
+    animation-timing-function: var(--ease);
+  }
+
+  .nav-links a[aria-current="location"]::after {
+    transform: scaleX(var(--section-progress, 1));
+    transition: none;
+  }
+  .nav-links a[aria-current="location"]:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+  .project-snapshot > summary::after { transition: transform var(--speed) var(--ease); }
+  .project-snapshot[open] > p { animation: snapshot-in var(--component-speed) var(--ease); }
+  @keyframes snapshot-in {
+    from { opacity: .55; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero .actions .button:active, .signature-actions .scene-button:active, .copy-email:active {
+    transform: translateY(1px);
+  }
+}
+
+@media (max-width: 360px) {
+  .signature-actions .scene-button { padding-inline: 8px; gap: 5px; }
+}

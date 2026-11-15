@@ -1,0 +1,65 @@
+# Creative portfolio research
+
+Reviewed 15 November 2026 before modifying the site. The comparison draws on live pages, rendered Safari captures where noted, creator write-ups, and award listings. Responsive and accessibility notes describe observed or documented affordances. Third-party sites did not receive a lab performance or accessibility audit.
+
+## Baseline
+
+The local baseline was commit `aa629bc`. The portfolio had a static homepage, four case-study routes, Motion Studies, and a résumé download. Signal to Structure already supported a reversible Canvas 2D scene and two static posters. Other established interactions included card tilt, small gallery reveals, native anchor navigation with section tracking, a scroll-traced timeline, and an SVG hobby accent.
+
+Safari captures of the homepage at narrow and wider effective CSS widths showed the existing stacked and two-column hero layouts. Both kept Work and Contact accessible. The wide capture also showed the three-card gallery. The visual baseline revealed flat block surfaces and a busy ordered silhouette. The interaction baseline had one large change of state inside the hero. The existing case links and the project illustrations offered room for continuity and optional context.
+
+## Reference matrix
+
+| Live portfolio | Art direction, 3D, and motion | Navigation, projects, and interaction | Mobile, accessibility, and rendering evidence |
+| --- | --- | --- | --- |
+| [Bruno Simon](https://bruno-simon.com/) | A stylized driveable world uses strong lighting and a clear start scene. The rendered Safari capture showed the car and lit environment before entry. | The world ties motion to exploration. Its interface lists controls for keyboards, touch, and gamepads, with map and recovery actions. | The live interface documents quality controls. Its behind-the-scenes section names Three.js and the renderer. A world that asks visitors to learn its controls is a poor match for this portfolio's main navigation. [Visual teardown](https://rickcreates.com/r/2026-01-21-brunos-portfolio) |
+| [Rauno Freiberg](https://rauno.me/) | A Safari capture showed a yellow geometric accent against large black type. Craft shows focused experiments in text, sliders, shaders, and toolbar morphing. | The live page exposes Projects, Craft, and other direct routes alongside its designed presentation. The email interaction has an explicit copied state. | The narrow capture kept the introductory type readable. Craft identifies discrete prototypes. Full keyboard coverage and production performance were outside review. [Craft](https://rauno.me/craft) |
+| [Arnaud Rocca](https://arnaudrocca.fr/) | The Safari capture showed an editorial serif introduction followed by large project imagery. The case study describes GSAP text transitions, a reusable motion system, and WebGL effects. | Index and About remain prominent. Projects have ordinary discovery links and dedicated pages. The written case study covers transition choreography. | The narrow capture retained the main navigation and artwork. The creator discusses accessibility in the case study. The full motion and performance behavior was not benchmarked. [Codrops](https://tympanus.net/codrops/2026/03/31/arnaud-roccas-portfolio-from-a-gsap-powered-motion-system-to-fluid-webgl/) · [CSS Design Awards](https://www.cssdesignawards.com/sites/arnaud-rocca-portfolio/48998/) |
+| [Andrea Aurelio Napoli](https://au-rel.io/) | The creator describes a grid-led visual system with motion and an editorial name treatment. | The live page exposes Projects, About, and three project category buttons. The direct gallery controls are a reference for user-directed discovery. | The page exposes real button and link semantics. The author write-up supplies implementation context. Keyboard behavior and network cost were not independently measured. [Codrops](https://tympanus.net/codrops/2026/11/09/au-rel-io/) |
+| [Dennis Snellenberg](https://dennissnellenberg.com/) | Strong typography and thumbnail-led presentation make project entries easy to distinguish. | A short Work, About, and Contact navigation sits alongside linked project entries with roles. The project map works without interpreting an installation. | The retrieved document exposed direct links and work labels. Hover easing, reduced motion, and frame pacing were not independently verified. |
+| [Martin Laxenaire](https://martin-laxenaire.fr/) | A WebGPU-based personal portfolio uses a game as its organizing art direction. | The live document prompts a slide to start and gives visitors an explicit shortcut to unlock the content. A conventional project list is present in the page. | The creator describes procedural effects and device trade-offs. Unlocking or playing introduces friction for a recruiter, so only the separation of an optional interaction from project access transfers. [Codrops](https://tympanus.net/codrops/2025/10/06/self-doubt-and-the-quest-for-fun-how-i-ended-up-turning-my-portfolio-into-a-game/) |
+| [Tomoya Okada](https://tomoyaokada.com/) | A typographic index makes individual WebGL, JavaScript, and kinetic experiments browseable. | The Studies and Snapshot routes distinguish browsing modes. Experiments open independently with titles and technique labels. | The retrieved homepage exposes ordinary links. Individual studies have different implementations and accessibility profiles. The related 4WIDE write-up documents a separate distortion-heavy build. [4WIDE](https://4wide.jp/) · [Codrops](https://tympanus.net/codrops/2026/04/23/building-4wide-turning-distortion-blur-and-motion-into-a-coherent-experience/) |
+| [Ravi Klaassens](https://www.raviklaassens.com/) | The creator describes pacing, typography, portrait treatments, and a WebGL background as parts of a single identity. | The live site has a Work index with named project links and clear contact routes. | Document structure preserves destinations alongside the authored effects. Responsive and performance behavior was not independently measured. [Codrops](https://tympanus.net/codrops/2026/04/07/r-k-26-the-thinking-and-code-behind-a-portfolio-led-by-presence/) |
+| [Russell Numo](https://www.russellnumo.nl/) | CSS Design Awards identifies typography, animation, and WebGL. The live site separates the portrait and roles from the featured work. | It has an explicit menu and recognizable project links with brief role and context labels. | The live markup exposes an ordinary menu button and project links. The award listing gives technical context. Mobile timing and keyboard behavior were not independently tested. [CSS Design Awards](https://www.cssdesignawards.com/sites/russell-numo-portfolio/49728/) |
+
+Discovery sources included [Awwwards](https://www.awwwards.com/), [Codrops](https://tympanus.net/codrops/), the [Creative Hub](https://tympanus.net/codrops/hub/), [CSS Design Awards](https://www.cssdesignawards.com/), [The FWA](https://thefwa.com/), and [Godly](https://godly.website/). Awwwards and the original Godly entry URL could not be retrieved directly in the research tool. The award-linked teardown and [Recent's web gallery](https://recent.design/websites) supplied alternate discovery access. Codrops' indexed case studies and [Creative Hub tutorials](https://tympanus.net/codrops/hub/tutorials/) were readable where direct article retrieval was blocked. Rendered reference captures were taken in Safari for Simon, Freiberg, and Rocca. The visual teardown and creator articles link to their own imagery.
+
+## Reference-to-implementation plan
+
+| Priority | Interaction principle | Application |
+| --- | --- | --- |
+| 1 | Give a 3D study one obvious entry gesture, with a visible response and a static equivalent. | Give Signal to Structure raised edges and directional light, then add an optional signal trace along one continuous route. The trace sits inside the existing scene and is an abstract illustration. |
+| 2 | Communicate hierarchy with pacing. Keep the typography and landmarks stable while the object moves. | Use a brief, distance-based pulse and preserve the existing field-to-lattice action. Keep the scene bounded by the same frame. |
+| 3 | Let visitors choose how much project detail they need. | Add a compact native snapshot to each featured card, drawn from the existing case study. Keep the title and artwork linked to the full case. |
+| 4 | Carry a visual anchor across navigation. | Match project artwork across the index and case pages where the browser supports cross-document view transitions. Use the existing short motion timing. |
+| 5 | Make microinteractions report real changes. | Add copy-email feedback and keep Motion Studies available as a separate route for visitors who want to explore. |
+
+The existing data sculpture has the closest connection to engineering and information design. A kinetic sculpture would emphasize materials at the expense of the current field-to-lattice interaction. A physics game would prioritize play over project discovery. Spatial typography would place the name and role in competition with the scene. Precision is expressed through deliberate control states, momentum through the moving signal, and exploration through optional project snapshots and archived studies.
+
+Full-screen WebGL, mandatory game entry, pinned galleries, aggressive text distortion, and a filter over five projects were set aside. Those choices would add input friction, rendering work, or unnecessary states. The updates use the site's existing Canvas and CSS architecture, its blue palette, and original procedural artwork.
+
+## Implementation and verification
+
+- `assets/hero-scene.js` adds bevels and near-face lighting while keeping the original reversible geometry. The trace runs once along ten adjacent nodes and remains visible until switched off. Settled frames are cached during a pulse when OffscreenCanvas is available. Compact viewports and coarse pointers use simpler faces. The renderer stops when the scene settles, the document is hidden, or the scene leaves the viewport.
+- `index.html` adds accessible trace and organization controls, native project snapshots, and the email action. The Canvas and static SVG trace use the same projected geometry. The original case-study titles and hrefs provide direct navigation.
+- `assets/motion.css` and `assets/motion.js` use the existing timing tokens for pressed feedback, snapshots, the section progress indicator, and optional shared-art page transitions. The career timeline, skills reveals, and hobby artwork keep their existing behavior. `assets/site.js` handles hero controls independently of the deferred renderer.
+- `assets/site.css` and the page viewport metadata account for safe areas. The two WebP posters, social image, and deferred renderer URL were refreshed. Safari's local preview had retained the older deferred script on reload. The updated URL led to the new renderer and the visible trace.
+
+### Measurements
+
+| Local measure | Baseline | Refined |
+| --- | ---: | ---: |
+| Initial homepage files at rest, including the first poster | 100,102 bytes | 98,016 bytes |
+| Estimated gzip of those files, compressed individually | 60,930 bytes | 53,108 bytes |
+| Deferred hero renderer, raw | 9,651 bytes | 14,814 bytes |
+| Mean Canvas paint calls in a synthetic morph, detailed | 415.2 per frame | 409.7 per frame |
+| Mean Canvas paint calls in a synthetic morph, compact | 415.2 per frame | 217.7 per frame |
+
+The initial set includes the HTML, two stylesheets, three initial scripts, site mark, and the first WebP poster. The Canvas comparison runs the same 240 poses through both renderers with a mocked context and counts fills, strokes, and background paints. It excludes the optional pulse and measures issued paint commands. Field LCP, CLS, INP, battery use, and hosted transition profiling remain deployment checks. Browser support for shared artwork depends on native cross-document view transitions and same-origin hosting. [MDN View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using)
+
+### Test coverage
+
+- Safari visual review at wide, laptop-sized, narrow, and phone-width layouts using window size and page zoom. The desktop and narrow views showed the real trace and the original hero controls.
+- Browser checks covered field-to-lattice changes, trace activation using Space, native project disclosure using Space, case-study navigation, and copy-email confirmation.
+- JavaScript syntax and whitespace checks passed. A static audit parsed all six HTML pages and resolved all 111 local links and resource references. Main light and dark text, accents, the research panel, and the hero action exceeded 4.5:1 in the tested contrast pairs.
+- Simulated runtime checks covered deferred loading, both trace states, the cached pulse, missing Canvas, context loss and recovery, reduced motion, and stopping draws while idle or off-screen. Static fallback paths were checked against the renderer's geometry. Physical-device touch and real user performance are open for hosted validation.
