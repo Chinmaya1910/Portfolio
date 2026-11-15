@@ -30,6 +30,29 @@
     preference.addEventListener('change', trackReveals);
   }
 
+  const copy = document.querySelector('[data-copy-email]');
+  const feedback = document.querySelector('[data-copy-feedback]');
+  const email = document.querySelector('.email-link');
+  if (copy && feedback && email && navigator.clipboard?.writeText) {
+    let clearFeedback;
+    copy.hidden = false;
+    copy.addEventListener('click', async () => {
+      clearTimeout(clearFeedback);
+      try {
+        await navigator.clipboard.writeText(email.getAttribute('href').slice('mailto:'.length));
+        copy.textContent = 'Copied';
+        feedback.textContent = 'Email address copied.';
+      } catch {
+        copy.textContent = 'Copy email';
+        feedback.textContent = 'Select the email address to copy it.';
+      }
+      clearFeedback = setTimeout(() => {
+        copy.textContent = 'Copy email';
+        feedback.textContent = '';
+      }, 3200);
+    });
+  }
+
   const header = document.querySelector('.site-header');
   if (!header) return;
   const links = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'))
@@ -43,17 +66,26 @@
   function updateScrollState() {
     frame = null;
     const headerLine = header.offsetHeight + 46;
-    let nextLink = null;
-    for (const { link, section } of links) {
-      if (section.getBoundingClientRect().top <= headerLine) nextLink = link;
+    const positions = links.map(({ section }) => section.getBoundingClientRect().top);
+    const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 3;
+    let current = -1;
+    for (let index = 0; index < positions.length; index++) {
+      if (positions[index] <= headerLine) current = index;
     }
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 3) {
-      nextLink = links.at(-1)?.link ?? null;
-    }
+    if (atEnd) current = links.length - 1;
+
+    const nextLink = links[current]?.link ?? null;
     if (currentLink !== nextLink) {
       currentLink?.removeAttribute('aria-current');
+      currentLink?.style.removeProperty('--section-progress');
       nextLink?.setAttribute('aria-current', 'location');
       currentLink = nextLink;
+    }
+    if (nextLink && !preference.matches) {
+      const start = positions[current];
+      const end = positions[current + 1] ?? (start + links[current].section.offsetHeight);
+      const progress = atEnd ? 1 : Math.min(1, Math.max(0, (headerLine - start) / Math.max(1, end - start)));
+      nextLink.style.setProperty('--section-progress', (0.34 + progress * 0.66).toFixed(3));
     }
     header.toggleAttribute('data-scrolled', window.scrollY > 12);
 

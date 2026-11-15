@@ -38,6 +38,8 @@ The home hero loads a WebP poster before it requests the renderer. Project artwo
 
 ## Motion design
 
+The [interaction research and validation report](docs/interaction-research.md) compares nine live references, records the design decisions, and reports before-and-after measurements.
+
 The existing site is dependency-free static HTML with a 5:4 Canvas 2D hero, optional pointer tilt on project illustrations, sticky anchor navigation, and native case-study routes. The review at wide, tablet, and narrow effective widths found room for section feedback, clearer project interactions, and a timeline that shows where the reader is. The ice-blue, cobalt, and midnight-navy palette carries through both themes.
 
 | Hero direction | Originality and personal connection | Interaction and accessibility | Cost and mobile fit |
@@ -48,7 +50,7 @@ The existing site is dependency-free static HTML with a 5:4 Canvas 2D hero, opti
 | Spatial typography | Brings typography and layered graphics to the foreground | Visually distinctive. Perspective occlusion can compete with the name and role | Low asset weight with CSS. Narrow layouts need different compositions |
 | Moving lens | Two blue halftone screens form a shifting moiré image, inspired by printmaking and optics | Strong focal point. High-frequency patterns risk visual discomfort and need substantial simplification | Low asset weight. Small screens and different pixel densities change the effect |
 
-Signal to Structure is an abstract composition. The previous Signal Field, Contour Route, and Query Layers scenes are still playable from the Motion Studies page.
+Signal to Structure is an abstract composition. Organize or disperse the lattice, or activate Trace signal to follow a route through adjacent nodes. Both controls also work with the static artwork and reduced motion. The previous Signal Field, Contour Route, and Query Layers scenes are still playable from the Motion Studies page.
 
 | Motion scale | Use |
 | --- | --- |
