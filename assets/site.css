@@ -319,5 +319,7 @@ p, dd { color: var(--muted); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
   .project-media > div { transform: none; }
-  .scene-button, .scene-canvas { display: none; }
+  .scene-button[data-scene-play], .scene-canvas { display: none; }
 }
+
+.motion-studies { max-width: 710px; padding-bottom: var(--section-space); }
