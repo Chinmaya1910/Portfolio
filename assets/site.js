@@ -61,24 +61,54 @@ const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 const pointerPreference = matchMedia('(hover: hover) and (pointer: fine)');
 
 for (const media of document.querySelectorAll('[data-tilt]')) {
-  media.addEventListener('pointermove', (event) => {
-    if (motionPreference.matches || !pointerPreference.matches || event.pointerType !== 'mouse') return;
-    const bounds = media.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    media.style.setProperty('--tilt-x', `${-y * 7}deg`);
-    media.style.setProperty('--tilt-y', `${x * 7}deg`);
-  });
-  media.addEventListener('pointerleave', () => {
+  let frame = null;
+  let pointerX = 0;
+  let pointerY = 0;
+
+  function clearTilt() {
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = null;
     media.style.removeProperty('--tilt-x');
     media.style.removeProperty('--tilt-y');
+  }
+
+  media.addEventListener('pointermove', (event) => {
+    if (motionPreference.matches || !pointerPreference.matches || event.pointerType !== 'mouse') return;
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    if (frame !== null) return;
+    frame = requestAnimationFrame(() => {
+      frame = null;
+      const bounds = media.getBoundingClientRect();
+      const x = (pointerX - bounds.left) / bounds.width - 0.5;
+      const y = (pointerY - bounds.top) / bounds.height - 0.5;
+      media.style.setProperty('--tilt-x', `${-y * 9}deg`);
+      media.style.setProperty('--tilt-y', `${x * 9}deg`);
+    });
   });
+  media.addEventListener('pointerleave', clearTilt);
+  motionPreference.addEventListener('change', clearTilt);
 }
 
 const stage = document.querySelector('[data-scene-stage]');
 if (stage && siteScript?.dataset.scene) {
   const poster = stage.querySelector('.scene-poster');
   const actionLabel = stage.querySelector('[data-action-label]');
+  const signatureButton = stage.querySelector('[data-hero-action]');
+  if (signatureButton) {
+    const fieldPoster = poster.getAttribute('src');
+    const label = signatureButton.querySelector('[data-hero-label]');
+    const state = stage.querySelector('[data-hero-state]');
+    signatureButton.hidden = false;
+    signatureButton.addEventListener('click', () => {
+      const ordered = stage.dataset.signature !== 'ordered';
+      stage.dataset.signature = ordered ? 'ordered' : 'field';
+      poster.src = ordered ? poster.dataset.orderedPoster : fieldPoster;
+      label.textContent = ordered ? 'Disperse signals' : 'Organize signals';
+      state.textContent = ordered ? 'Ordered lattice' : 'Signal field';
+      stage.dispatchEvent(new Event('signaturechange'));
+    });
+  }
   const choices = document.querySelector('[data-scene-choices]');
   const description = document.querySelector('[data-scene-description]');
 
@@ -100,23 +130,41 @@ if (stage && siteScript?.dataset.scene) {
   }
 
   let requested = false;
+  let posterSettled = poster.complete;
+  let nearStage = !('IntersectionObserver' in window);
+
   function loadScene() {
-    if (requested || motionPreference.matches) return;
+    if (requested || motionPreference.matches || !posterSettled || !nearStage) return;
     requested = true;
     const script = document.createElement('script');
     script.src = siteScript.dataset.scene;
     document.head.append(script);
   }
 
-  // Let the local poster paint before fetching the optional renderer.
-  const schedule = () => {
-    if ('requestIdleCallback' in window) requestIdleCallback(loadScene, { timeout: 1500 });
-    else setTimeout(loadScene, 150);
-  };
-  if (poster.complete) schedule();
-  else {
-    poster.addEventListener('load', schedule, { once: true });
-    poster.addEventListener('error', schedule, { once: true });
+  // Let the first poster paint before fetching the optional renderer.
+  function scheduleScene() {
+    if (requested || motionPreference.matches || !posterSettled || !nearStage) return;
+    if ('requestIdleCallback' in window) requestIdleCallback(loadScene, { timeout: 1200 });
+    else setTimeout(loadScene, 120);
   }
-  motionPreference.addEventListener('change', loadScene);
+
+  if (!posterSettled) {
+    const settlePoster = () => {
+      posterSettled = true;
+      scheduleScene();
+    };
+    poster.addEventListener('load', settlePoster, { once: true });
+    poster.addEventListener('error', settlePoster, { once: true });
+  }
+  if (!nearStage) {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      nearStage = true;
+      observer.disconnect();
+      scheduleScene();
+    }, { rootMargin: '120px' });
+    observer.observe(stage);
+  }
+  motionPreference.addEventListener('change', scheduleScene);
+  scheduleScene();
 }

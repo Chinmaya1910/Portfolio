@@ -368,14 +368,21 @@
   window.addEventListener('resize', () => {
     if (available && !motion.matches) resize();
   }, { passive: true });
+  function pausePlayback() {
+    if (!playback) return;
+    progress = playback.from;
+    cancelFrame();
+    if (available && !motion.matches) draw();
+  }
+
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden && playback) {
-      // Restore the last completed state if the view is hidden mid-playback.
-      progress = playback.from;
-      cancelFrame();
-      if (available && !motion.matches) draw();
-    }
+    if (document.hidden) pausePlayback();
   });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) pausePlayback();
+    }).observe(stage);
+  }
   motion.addEventListener('change', syncAvailability);
   canvas.addEventListener('contextlost', () => {
     available = false;
