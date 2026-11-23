@@ -1,0 +1,112 @@
+.work-index .section-heading { margin-bottom: 1.75rem; }
+.work-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.work-filters { display: flex; flex-wrap: wrap; gap: .4rem; }
+.work-filters button, .work-count {
+  font: 500 .72rem/1.4 var(--mono);
+  letter-spacing: .025em;
+}
+.work-filters button {
+  min-height: 2.5rem;
+  padding: .45rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--muted);
+  background: var(--paper);
+  cursor: pointer;
+}
+.work-filters button:hover { color: var(--text); border-color: var(--accent); }
+.work-filters button[aria-pressed="true"] {
+  color: var(--on-accent);
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+}
+.work-count { color: var(--muted); white-space: nowrap; }
+.work-index .work-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.4vw, 2.25rem);
+}
+.work-index .project-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+.work-index .project-media { border: 1px solid var(--line); aspect-ratio: 2.5; }
+.work-index .project-copy { padding: 1.3rem 0 .6rem; gap: .7rem; }
+.work-index .project-type { color: var(--accent-strong); font-size: .72rem; }
+.work-index .project-copy h3 { font-size: clamp(1.65rem, 3.1vw, 2.75rem); }
+.work-index .project-copy > p:not(.project-type) { max-width: 58ch; font-size: 1rem; }
+.work-index .tags { gap: .36rem; margin: .25rem 0 .4rem; }
+.work-index .tags li { background: transparent; border-radius: 1px; font-size: .71rem; }
+.work-index .project-snapshot { margin-top: auto; }
+.work-index .project-snapshot > summary {
+  color: var(--muted);
+  font: 500 .74rem/1.5 var(--mono);
+}
+.work-index .project-snapshot > summary:hover { color: var(--accent-strong); }
+.work-index .project-feature {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.work-index .project-feature .project-media { border: 0; min-height: 20rem; aspect-ratio: auto; }
+.work-index .project-feature .project-copy { padding: clamp(1.375rem, 3vw, 3rem); }
+.work-index .project-feature .project-copy h3 { font-size: clamp(2.2rem, 4.9vw, 4.7rem); }
+.work-index .project-feature .project-snapshot { margin-top: .5rem; }
+.work-index .query-art {
+  background-color: #b7a3db;
+  background-image:
+    linear-gradient(35deg, #c9c1da 0%, transparent 60%),
+    repeating-linear-gradient(125deg, #50365222 0 1px, transparent 1px 9px);
+}
+.work-index .query-window {
+  width: 79%;
+  max-width: 34rem;
+  background: #211d2a;
+  border-color: #655675;
+  box-shadow: 9px 12px 0 #29203036, 0 20px 40px #2b173438;
+}
+.work-index .window-top { padding: .6rem .85rem; border-color: #524958; font-size: .7rem; }
+.work-index .window-top b { background: #b9a5d4; }
+.work-index .window-body { gap: .55rem; padding: clamp(.65rem, 1.8vw, 1.3rem); }
+.work-index .mock-blocks { gap: .42rem; }
+.work-index .mock-blocks span {
+  align-items: center;
+  padding: clamp(.3rem, 1vw, .7rem);
+  color: #241e30;
+  background: #d4bef6;
+  font-size: clamp(.57rem, .79vw, .74rem);
+}
+.work-index .mock-blocks span:nth-child(2) { background: #c8cdd7; }
+.work-index .mock-blocks span:nth-child(3) { background: #dacfbc; }
+.work-index .mock-chart { gap: .6rem; padding: .55rem; background: #3a3343; }
+.work-index .mock-chart i { background: #c4b0df; }
+.work-index .network-art { width: 80%; max-width: 29rem; }
+.work-index .fluid-visual { width: 73%; height: 69%; max-width: 29rem; }
+.work-index .additional-work { gap: 1.25rem 3rem; padding-block: 1.7rem; }
+.work-index .additional-work .eyebrow { color: var(--accent-strong); }
+.work-index .additional-work h3 { font-size: clamp(1.3rem, 2.5vw, 2rem); }
+.work-index .additional-work > p { font-size: 1rem; }
+
+@media (max-width: 820px) {
+  .work-index .project-feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .work-index .project-feature .project-media { min-height: 15rem; }
+}
+@media (max-width: 660px) {
+  .work-index .work-grid, .work-index .project-feature { grid-template-columns: minmax(0, 1fr); }
+  .work-index .project-feature .project-media { min-height: 0; aspect-ratio: 1.85; }
+  .work-index .project-media { aspect-ratio: 2.2; }
+  .work-index .project-feature .project-copy { padding: 1.25rem; }
+  .work-toolbar { align-items: start; }
+  .work-index .additional-work { grid-template-columns: 1fr; gap: .6rem; }
+}

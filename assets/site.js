@@ -90,6 +90,21 @@ for (const media of document.querySelectorAll('[data-tilt]')) {
   motionPreference.addEventListener('change', clearTilt);
 }
 
+const studySwitch = document.querySelector('.study-switch');
+if (studySwitch) {
+  const figure = studySwitch.closest('figure');
+  const studyButtons = Array.from(studySwitch.querySelectorAll('[data-study]'));
+  const panels = Array.from(figure.querySelectorAll('[data-study-panel]'));
+  studySwitch.addEventListener('click', event => {
+    const chosen = event.target.closest('[data-study]');
+    if (!chosen) return;
+    figure.dataset.activeStudy = chosen.dataset.study;
+    studyButtons.forEach(button => button.setAttribute('aria-pressed', String(button === chosen)));
+    panels.forEach(panel => { panel.hidden = panel.dataset.studyPanel !== chosen.dataset.study; });
+  });
+  studySwitch.hidden = false;
+}
+
 const stage = document.querySelector('[data-scene-stage]');
 if (stage && siteScript?.dataset.scene) {
   const poster = stage.querySelector('.scene-poster');

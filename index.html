@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description"
     content="Chinmaya Mallappa Giriyappa is a software engineer and master’s student in Heilbronn, Germany. Explore work in backend engineering, scientific software, and human–AI collaboration.">
-  <meta name="theme-color" content="#f3f6fc">
+  <meta name="theme-color" content="#09090b">
   <title>Chinmaya Mallappa Giriyappa | Software Engineer</title>
   <link rel="canonical" href="https://chinmaya1910.github.io/Portfolio/">
   <meta property="og:type" content="website">
@@ -14,18 +14,24 @@
   <meta property="og:description"
     content="Selected work in backend engineering, scientific software, and human–AI collaboration.">
   <meta property="og:url" content="https://chinmaya1910.github.io/Portfolio/">
-  <meta property="og:image" content="https://chinmaya1910.github.io/Portfolio/assets/social-preview.jpg">
+  <meta property="og:image" content="https://chinmaya1910.github.io/Portfolio/assets/social-preview.jpg?v=2">
   <meta property="og:image:alt"
-    content="Chinmaya Mallappa Giriyappa, software engineer, alongside an abstract blue signal field">
+    content="Portrait of Chinmaya Mallappa Giriyappa beside his name and software engineer title">
   <link rel="icon" href="assets/mark.png" type="image/png">
-  <script src="assets/theme.js"></script>
-  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/theme.js?v=3"></script>
+  <link rel="stylesheet" href="assets/site.css?v=3">
   <link rel="stylesheet" href="assets/motion.css">
-  <script defer src="assets/site.js" data-scene="assets/hero-scene.js?v=2"></script>
+  <link rel="stylesheet" href="assets/portfolio.css?v=2">
+  <link rel="stylesheet" href="assets/work-index.css">
+  <script defer src="assets/axon/vendor/three-0.150.1.min.js"></script>
+  <script defer src="assets/axon/fluid.js?v=3"></script>
+  <script defer src="assets/axon/surface.js?v=3"></script>
+  <script defer src="assets/site.js?v=3" data-scene="assets/hero-scene.js?v=2"></script>
   <script defer src="assets/motion.js"></script>
+  <script defer src="assets/work-index.js"></script>
 </head>
 
-<body>
+<body class="portfolio-home">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="shell header-inner">
@@ -49,8 +55,7 @@
   <main id="main" tabindex="-1">
     <section class="shell hero" id="home" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow hero-kicker"><span class="status-dot" aria-hidden="true"></span> Software Engineer <span
-            aria-hidden="true">/</span> Heilbronn, Germany</p>
+        <p class="eyebrow hero-kicker"><span class="role-rule" aria-hidden="true"></span>Software engineer</p>
         <h1 id="hero-title">
           <span class="hero-line">Chinmaya</span>
           <span class="hero-line">Mallappa</span>
@@ -59,48 +64,70 @@
         <p class="hero-description">I build backend systems and explore how thoughtful interfaces make complex software
           easier to use.</p>
         <div class="actions">
-          <a class="button button-primary" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
-          <a class="button" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+          <a class="button button-primary" href="#projects">Explore my work</a>
+          <a class="hero-contact" href="#contact">Get in touch</a>
         </div>
       </div>
-      <figure class="hero-figure signature-figure">
-        <div class="scene-stage signature-stage" data-scene-stage data-signature="field">
-          <img class="scene-poster" src="assets/signal-assembly.webp" data-ordered-poster="assets/signal-lattice.webp"
-            width="900" height="720" alt="" fetchpriority="high">
-          <svg class="trace-poster" viewBox="0 0 900 720" aria-hidden="true" focusable="false">
-            <path class="trace-field"
-              d="M206.7 595.3 L272.1 529.7 L447.0 620.1 L527.7 578.2 L450.5 550.8 L356.7 406.8 L305.1 233.8 L419.5 245.5 L478.4 256.3 L664.6 306.0" />
-            <path class="trace-ordered"
-              d="M256.6 468.3 L330.8 495.0 L408.0 522.8 L488.6 551.7 L489.4 464.8 L490.1 374.5 L491.0 280.4 L546.9 244.8 L599.3 211.3 L648.5 179.9" />
-          </svg>
-          <canvas class="scene-canvas" aria-hidden="true"></canvas>
-          <span class="scene-state" data-hero-state aria-live="polite">Signal field</span>
-          <div class="signature-actions" role="group" aria-label="Signal to Structure controls">
-            <button class="scene-button" type="button" data-hero-trace aria-pressed="false" hidden>
-              <span>Trace signal</span>
-            </button>
-            <button class="scene-button" type="button" data-hero-action hidden>
-              <span data-hero-label>Organize signals</span><span aria-hidden="true">↗</span>
-            </button>
+      <figure class="hero-figure motion-figure">
+        <div class="artboard">
+          <div class="particle-stage" id="surface-view" data-study-panel="surface">
+            <canvas id="bg" aria-hidden="true"></canvas>
+            <div class="workbench" aria-hidden="true"></div>
+            <img class="surface-still" src="assets/axon/surface-still.webp" alt="" width="750" height="750" fetchpriority="high">
+          </div>
+          <div class="scene-stage signature-stage" id="lattice-view" data-study-panel="lattice" data-scene-stage data-signature="field" hidden>
+            <img class="scene-poster" src="assets/signal-assembly.webp" data-ordered-poster="assets/signal-lattice.webp"
+              width="900" height="720" alt="" loading="lazy">
+            <svg class="trace-poster" viewBox="0 0 900 720" aria-hidden="true" focusable="false">
+              <path class="trace-field"
+                d="M206.7 595.3 L272.1 529.7 L447.0 620.1 L527.7 578.2 L450.5 550.8 L356.7 406.8 L305.1 233.8 L419.5 245.5 L478.4 256.3 L664.6 306.0" />
+              <path class="trace-ordered"
+                d="M256.6 468.3 L330.8 495.0 L408.0 522.8 L488.6 551.7 L489.4 464.8 L490.1 374.5 L491.0 280.4 L546.9 244.8 L599.3 211.3 L648.5 179.9" />
+            </svg>
+            <canvas class="scene-canvas" aria-hidden="true"></canvas>
+            <span class="scene-state" data-hero-state aria-live="polite">Signal field</span>
+            <div class="signature-actions" role="group" aria-label="Signal to Structure controls">
+              <button class="scene-button" type="button" data-hero-trace aria-pressed="false" hidden>
+                <span>Trace signal</span>
+              </button>
+              <button class="scene-button" type="button" data-hero-action hidden>
+                <span data-hero-label>Organize signals</span><span aria-hidden="true">↗</span>
+              </button>
+            </div>
           </div>
         </div>
-        <figcaption>
-          <span>Signal to Structure</span>
-          <a class="text-link" href="studies/index.html">Motion studies <span aria-hidden="true">↗</span></a>
+        <figcaption class="study-caption">
+          <div class="study-switch" role="group" aria-label="Interactive artwork" hidden>
+            <button type="button" data-study="surface" aria-pressed="true" aria-controls="surface-view">Particle surface</button>
+            <button type="button" data-study="lattice" aria-pressed="false" aria-controls="lattice-view">Signal lattice</button>
+          </div>
+          <span class="stir-hint" hidden><span class="cursor-glyph" aria-hidden="true"></span>Move to stir</span>
+          <button type="button" data-pause-surface class="pause-surface" aria-label="Pause particle motion" hidden><span aria-hidden="true"></span></button>
         </figcaption>
       </figure>
+      <div class="hero-foot">
+        <span class="location"><span class="location-symbol" aria-hidden="true"></span>Heilbronn, Germany</span>
+        <span>Backend systems <b aria-hidden="true">/</b> Scientific software <b aria-hidden="true">/</b> Human–AI interaction</span>
+      </div>
     </section>
 
-    <section class="shell section" id="projects" aria-labelledby="work-title">
+    <section class="shell section work-index" id="projects" aria-labelledby="work-title">
       <div class="section-heading">
-        <div>
-          <p class="eyebrow section-label">Portfolio</p>
-          <h2 id="work-title">Selected work<span>.</span></h2>
-        </div>
+        <h2 id="work-title">Selected work<span>.</span></h2>
         <a class="text-link" href="https://github.com/Chinmaya1910">GitHub profile <span aria-hidden="true">↗</span></a>
       </div>
+      <div class="work-toolbar" hidden>
+        <div class="work-filters" role="group" aria-label="Filter projects by domain">
+          <button type="button" data-domain="all" aria-pressed="true">All</button>
+          <button type="button" data-domain="human-ai" aria-pressed="false">Human–AI</button>
+          <button type="button" data-domain="backend" aria-pressed="false">Backend</button>
+          <button type="button" data-domain="scientific" aria-pressed="false">Scientific software</button>
+          <button type="button" data-domain="ml" aria-pressed="false">Machine learning</button>
+        </div>
+        <output class="work-count" aria-live="polite" aria-atomic="true">5 projects</output>
+      </div>
       <div class="work-grid">
-        <article class="project-card project-feature" data-reveal>
+        <article class="project-card project-feature" data-domains="human-ai backend" data-reveal>
           <a class="project-media query-art" href="projects/queryblocks/index.html" tabindex="-1" aria-hidden="true"
             data-tilt>
             <div class="query-window">
@@ -133,7 +160,7 @@
           </div>
         </article>
 
-        <article class="project-card" data-reveal>
+        <article class="project-card" data-domains="backend" data-reveal>
           <a class="project-media ondc-art" href="projects/ondc/index.html" tabindex="-1" aria-hidden="true" data-tilt>
             <div class="network-art"><span class="network-node node-left">Seller app</span><span
                 class="network-node node-center">API</span><span class="network-node node-right">ONDC</span><i
@@ -157,7 +184,7 @@
           </div>
         </article>
 
-        <article class="project-card" data-reveal>
+        <article class="project-card" data-domains="scientific" data-reveal>
           <a class="project-media simulation-art" href="projects/fluid-simulation/index.html" tabindex="-1"
             aria-hidden="true" data-tilt>
             <div class="fluid-visual"><span></span><span></span><span></span><span></span><span></span></div>
@@ -181,7 +208,7 @@
           </div>
         </article>
       </div>
-      <div class="additional-work">
+      <div class="additional-work" data-domains="scientific ml">
         <div>
           <p class="eyebrow">Bachelor’s team project</p>
           <h3><a href="projects/mariculture/index.html">Water quality prediction for smart mariculture <span
@@ -190,7 +217,7 @@
         <p>Explored how sensor data and machine learning could support water-quality monitoring in marine aquaculture.
         </p>
       </div>
-      <div class="additional-work">
+      <div class="additional-work" data-domains="ml">
         <div>
           <p class="eyebrow">Independent experiment</p>
           <h3><a href="https://github.com/Chinmaya1910/Color-detection">Color detection with Python <span
@@ -253,7 +280,7 @@
 
     <section class="shell section about-grid" id="about" aria-labelledby="about-title">
       <figure class="portrait">
-        <img src="assets/portrait.webp" width="720" height="741" alt="Portrait of Chinmaya Mallappa Giriyappa"
+        <img src="assets/portrait.webp?v=2" width="1120" height="1259" alt="Portrait of Chinmaya Mallappa Giriyappa"
           loading="lazy" decoding="async">
         <figcaption>Chinmaya Mallappa Giriyappa <span>Heilbronn, DE</span></figcaption>
       </figure>
@@ -263,8 +290,9 @@
         <p>I’m pursuing an M.Sc. in Software Engineering and Management at Hochschule Heilbronn. My background is in
           backend engineering, and my research has shifted my attention toward the interface between complex systems and
           the people who use them.</p>
-        <p id="interests">Outside work, I play table tennis, cycling, and experiment with typography and motion
+        <p id="interests">Outside work, I play table tennis, go cycling, and experiment with typography and motion
           graphics.</p>
+        <a class="text-link studies-link" href="studies/index.html">Explore my motion studies</a>
         <svg class="hobby-motion" data-reveal viewBox="0 0 244 32" width="244" height="32" aria-hidden="true"
           focusable="false">
           <path class="hobby-guide" d="M3 25H106 M130 25H241" />

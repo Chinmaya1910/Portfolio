@@ -1,6 +1,6 @@
 # Chinmaya Mallappa Giriyappa · Portfolio
 
-A static portfolio for a software engineer and master’s student in Heilbronn, Germany. The landing page leads with selected work and links to four case studies. It preserves the original section links and GitHub Pages structure.
+Chinmaya Mallappa Giriyappa’s portfolio brings his software engineering projects, research, experience, and CV together on the homepage. Move the pointer through the intro’s particle sculpture, then scroll to Selected work and filter the projects by domain.
 
 ## Run locally
 
@@ -16,31 +16,34 @@ Open [http://localhost:8000/](http://localhost:8000/). The root `index.html` can
 
 1. Review the changes on the working branch and merge them into the branch configured for Pages.
 2. In the GitHub repository, open **Settings → Pages** and use **Deploy from a branch** with the selected branch and **/ (root)** as the source.
-3. After the Pages deployment succeeds, open the [portfolio](https://chinmaya1910.github.io/Portfolio/) and check its four case-study routes and CV download. If you change the host, update the canonical and Open Graph URLs in the HTML files.
+3. After the Pages deployment succeeds, check the homepage, its four case-study routes, and its CV download. If you change the host, update the canonical and Open Graph URLs in the HTML files. [Portfolio](https://chinmaya1910.github.io/Portfolio/)
 
 ## Site structure
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Intro, selected work, experience, research, about, skills, and contact |
+| `index.html` | Portfolio intro and particle sculpture, selected work, experience, research, about, skills, and contact |
+| `assets/axon/` | Particle and fluid shaders and locally bundled Three.js r150.1 for the inline sculpture |
+| `portfolio.html` | Compatibility redirect for old bookmarks, including section fragments |
 | `projects/*/index.html` | Shareable case studies with semantic HTML and page metadata |
 | `assets/site.css` | Theme tokens, layout, components, and responsive styles |
 | `assets/theme.js` and `assets/site.js` | Theme persistence, mobile navigation, and deferred scene loading |
 | `assets/motion.js` and `assets/motion.css` | Section tracking, one-time reveals, timeline progress, and interaction styles |
-| `assets/hero-scene.js` | On-demand perspective rendering and a reversible field-to-lattice animation |
-| `assets/signal-assembly.webp` and `assets/signal-lattice.webp` | Static artwork for both hero states |
+| `assets/hero-scene.js` | Renderer for the selectable Signal lattice view in the portfolio intro |
+| `assets/portfolio.css`, `assets/work-index.css`, `assets/work-index.js` | Responsive homepage artwork, project layout, and domain filters |
+| `assets/signal-assembly.webp` and `assets/signal-lattice.webp` | Static artwork for Signal to Structure |
 | `studies/index.html` | The three earlier, independently playable motion studies |
 | `assets/scene.js` | Canvas renderer for the three earlier studies |
 | `assets/signal-field.webp`, `assets/contour-route.webp`, `assets/query-layers.webp` | Static artwork for reduced motion or unavailable canvas |
 | `images/Chinmaya-Mallappa-Giriyappa-Resume.pdf` | Public-facing version of the current CV |
 
-The home hero loads a WebP poster before it requests the renderer. Project artwork is illustrative, and the site uses zero third-party runtime dependencies.
+The particle surface responds to pointer movement inside the intro. Its pause control follows the visitor’s reduced-motion preference on arrival. Choose **Signal lattice** to organize the alternate composition or trace a path through it.
 
-## Motion design
+## Earlier portfolio motion design
 
 The [interaction research and validation report](docs/interaction-research.md) compares nine live references, records the design decisions, and reports before-and-after measurements.
 
-The existing site is dependency-free static HTML with a 5:4 Canvas 2D hero, optional pointer tilt on project illustrations, sticky anchor navigation, and native case-study routes. The review at wide, tablet, and narrow effective widths found room for section feedback, clearer project interactions, and a timeline that shows where the reader is. The ice-blue, cobalt, and midnight-navy palette carries through both themes.
+The previous homepage used a 5:4 Canvas 2D hero, optional pointer tilt on project illustrations, sticky anchor navigation, and native case-study routes. The review at wide, tablet, and narrow effective widths informed its section feedback, project interactions, and timeline. The design used ice blue, cobalt, and midnight navy across both themes.
 
 | Hero direction | Originality and personal connection | Interaction and accessibility | Cost and mobile fit |
 | --- | --- | --- | --- |
@@ -50,7 +53,7 @@ The existing site is dependency-free static HTML with a 5:4 Canvas 2D hero, opti
 | Spatial typography | Brings typography and layered graphics to the foreground | Visually distinctive. Perspective occlusion can compete with the name and role | Low asset weight with CSS. Narrow layouts need different compositions |
 | Moving lens | Two blue halftone screens form a shifting moiré image, inspired by printmaking and optics | Strong focal point. High-frequency patterns risk visual discomfort and need substantial simplification | Low asset weight. Small screens and different pixel densities change the effect |
 
-Signal to Structure is an abstract composition. Organize or disperse the lattice, or activate Trace signal to follow a route through adjacent nodes. Both controls also work with the static artwork and reduced motion. The previous Signal Field, Contour Route, and Query Layers scenes are still playable from the Motion Studies page.
+Signal to Structure let visitors organize or disperse a lattice and trace a route through adjacent nodes. Both controls also worked with its static artwork and reduced motion. Signal Field, Contour Route, and Query Layers are playable on the Motion Studies page.
 
 | Motion scale | Use |
 | --- | --- |
@@ -59,7 +62,7 @@ Signal to Structure is an abstract composition. Organize or disperse the lattice
 | 600 ms | Small one-time entrance gestures and decorative line reveals |
 | 900 ms | Hero reorganization. The canvas settles after the transition and draws again on interaction |
 
-The CSS tokens and one-shot viewport observer handle site motion. The hero renders at a capped pixel ratio and stops work outside the viewport. Its two locally stored posters support reduced motion and unavailable canvas. SVG is used for the small hobby illustration. Cross-page transitions use the browser's native opt-in on the home and case-study pages, which retain ordinary links throughout.
+The earlier hero rendered at a capped pixel ratio and stopped work outside the viewport. Two locally stored posters supported reduced motion and unavailable canvas. The site used CSS tokens and a one-shot viewport observer for motion, SVG for the hobby illustration, and native cross-page transitions with ordinary links.
 
 ## Content evidence and maintenance
 
@@ -72,4 +75,4 @@ The CSS tokens and one-shot viewport observer handle site motion. The hero rende
 
 ## Local validation
 
-Run `node --check` against each JavaScript file and `git diff --check` before merging. Check the site at a narrow and wide viewport, including its mobile menu, theme persistence, both signature-hero states, the earlier studies, keyboard focus, project routes, and reduced-motion posters. Treat actual-device Core Web Vitals as a deployment check.
+Run `node --check` against each JavaScript file and `git diff --check` before merging. Check narrow and wide viewports, including the mobile menu, theme persistence, sculpture interaction and pause control, project filters, case-study links, keyboard focus, and reduced motion. Treat actual-device Core Web Vitals as a deployment check.
