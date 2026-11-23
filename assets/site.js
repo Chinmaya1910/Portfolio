@@ -94,31 +94,6 @@ const stage = document.querySelector('[data-scene-stage]');
 if (stage && siteScript?.dataset.scene) {
   const poster = stage.querySelector('.scene-poster');
   const actionLabel = stage.querySelector('[data-action-label]');
-  const signatureButton = stage.querySelector('[data-hero-action]');
-  const traceButton = stage.querySelector('[data-hero-trace]');
-  if (traceButton) {
-    traceButton.hidden = false;
-    traceButton.addEventListener('click', () => {
-      const active = traceButton.getAttribute('aria-pressed') !== 'true';
-      traceButton.setAttribute('aria-pressed', String(active));
-      stage.dataset.trace = String(active);
-      stage.dispatchEvent(new Event('tracechange'));
-    });
-  }
-  if (signatureButton) {
-    const fieldPoster = poster.getAttribute('src');
-    const label = signatureButton.querySelector('[data-hero-label]');
-    const state = stage.querySelector('[data-hero-state]');
-    signatureButton.hidden = false;
-    signatureButton.addEventListener('click', () => {
-      const ordered = stage.dataset.signature !== 'ordered';
-      stage.dataset.signature = ordered ? 'ordered' : 'field';
-      poster.src = ordered ? poster.dataset.orderedPoster : fieldPoster;
-      label.textContent = ordered ? 'Disperse signals' : 'Organize signals';
-      state.textContent = ordered ? 'Ordered lattice' : 'Signal field';
-      stage.dispatchEvent(new Event('signaturechange'));
-    });
-  }
   const choices = document.querySelector('[data-scene-choices]');
   const description = document.querySelector('[data-scene-description]');
 
