@@ -90,50 +90,10 @@ for (const media of document.querySelectorAll('[data-tilt]')) {
   motionPreference.addEventListener('change', clearTilt);
 }
 
-const studySwitch = document.querySelector('.study-switch');
-if (studySwitch) {
-  const figure = studySwitch.closest('figure');
-  const studyButtons = Array.from(studySwitch.querySelectorAll('[data-study]'));
-  const panels = Array.from(figure.querySelectorAll('[data-study-panel]'));
-  studySwitch.addEventListener('click', event => {
-    const chosen = event.target.closest('[data-study]');
-    if (!chosen) return;
-    figure.dataset.activeStudy = chosen.dataset.study;
-    studyButtons.forEach(button => button.setAttribute('aria-pressed', String(button === chosen)));
-    panels.forEach(panel => { panel.hidden = panel.dataset.studyPanel !== chosen.dataset.study; });
-  });
-  studySwitch.hidden = false;
-}
-
 const stage = document.querySelector('[data-scene-stage]');
 if (stage && siteScript?.dataset.scene) {
   const poster = stage.querySelector('.scene-poster');
   const actionLabel = stage.querySelector('[data-action-label]');
-  const signatureButton = stage.querySelector('[data-hero-action]');
-  const traceButton = stage.querySelector('[data-hero-trace]');
-  if (traceButton) {
-    traceButton.hidden = false;
-    traceButton.addEventListener('click', () => {
-      const active = traceButton.getAttribute('aria-pressed') !== 'true';
-      traceButton.setAttribute('aria-pressed', String(active));
-      stage.dataset.trace = String(active);
-      stage.dispatchEvent(new Event('tracechange'));
-    });
-  }
-  if (signatureButton) {
-    const fieldPoster = poster.getAttribute('src');
-    const label = signatureButton.querySelector('[data-hero-label]');
-    const state = stage.querySelector('[data-hero-state]');
-    signatureButton.hidden = false;
-    signatureButton.addEventListener('click', () => {
-      const ordered = stage.dataset.signature !== 'ordered';
-      stage.dataset.signature = ordered ? 'ordered' : 'field';
-      poster.src = ordered ? poster.dataset.orderedPoster : fieldPoster;
-      label.textContent = ordered ? 'Disperse signals' : 'Organize signals';
-      state.textContent = ordered ? 'Ordered lattice' : 'Signal field';
-      stage.dispatchEvent(new Event('signaturechange'));
-    });
-  }
   const choices = document.querySelector('[data-scene-choices]');
   const description = document.querySelector('[data-scene-description]');
 

@@ -26,24 +26,6 @@
 
 .hero h1 .hero-line { display: block; color: inherit; }
 .hero-line > span { color: var(--accent); }
-.signature-figure figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.signature-figure figcaption > span { font-weight: 700; color: var(--text); }
-.signature-figure .text-link { font-size: inherit; }
-.signature-stage { background: #111d3c; }
-.scene-state {
-  position: absolute; top: clamp(10px, 2vw, 22px); left: clamp(10px, 2vw, 22px);
-  padding: 6px 9px;
-  border: 1px solid var(--stage-edge);
-  border-radius: 5px;
-  background: var(--stage);
-  color: var(--stage-ink);
-  font: 600 .66rem/1.3 var(--mono);
-  letter-spacing: .055em;
-  text-transform: uppercase;
-}
-.signature-stage .scene-button { background: #204dac; border-color: #9bbdff; }
-.signature-stage .scene-button:hover { background: #2b59c2; }
-
 .project-card:focus-within { border-color: var(--accent); }
 .timeline { position: relative; }
 .timeline li[data-role="academic"]::before { border-radius: 2px; transform: rotate(45deg); }
@@ -74,8 +56,6 @@
   .hero[data-intro] .hero-line:nth-child(3) { animation-delay: 100ms; }
   .hero[data-intro] .hero-description { animation-delay: 125ms; }
   .hero[data-intro] .actions { animation-delay: 170ms; }
-  .signature-stage .scene-canvas { transition: opacity var(--component-speed) var(--ease); }
-  .signature-stage .scene-button { transition: background var(--speed) var(--ease); }
 
   @keyframes name-reveal {
     from { transform: translateY(13px); opacity: .72; clip-path: inset(-20% -10% 10%); }
@@ -196,43 +176,6 @@
   @view-transition { navigation: none; }
 }
 
-.signature-actions {
-  position: absolute;
-  z-index: 1;
-  right: clamp(10px, 2vw, 22px);
-  bottom: clamp(10px, 2vw, 22px);
-  left: clamp(10px, 2vw, 22px);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 6px;
-  pointer-events: none;
-}
-.signature-actions .scene-button { position: static; pointer-events: auto; }
-.signature-actions [data-hero-trace] { background: #112443; border-color: #6d9ece; }
-.signature-actions [data-hero-trace]:hover { background: #1b3b63; }
-.signature-actions [data-hero-trace][aria-pressed="true"] {
-  background: #b7f3ff;
-  color: #102944;
-  border-color: #dbfaff;
-}
-.trace-poster {
-  display: none;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  fill: none;
-  stroke: #b4f9ff;
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.signature-stage[data-trace="true"]:not([data-ready]) .trace-poster { display: block; }
-.signature-stage[data-signature="field"] .trace-ordered,
-.signature-stage[data-signature="ordered"] .trace-field { display: none; }
-
 .project-snapshot { border-top: 1px solid var(--line); width: 100%; }
 .project-snapshot > summary {
   display: flex;
@@ -286,11 +229,7 @@
     from { opacity: .55; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .hero .actions .button:active, .signature-actions .scene-button:active, .copy-email:active {
+  .hero .actions .button:active, .copy-email:active {
     transform: translateY(1px);
   }
-}
-
-@media (max-width: 360px) {
-  .signature-actions .scene-button { padding-inline: 8px; gap: 5px; }
 }

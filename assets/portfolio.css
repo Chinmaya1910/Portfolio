@@ -43,27 +43,19 @@
 .hero-contact:hover { color: var(--accent); }
 
 .motion-figure { min-width: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
-.artboard { position: relative; height: clamp(380px, min(43vw, 63svh), 700px); }
-.particle-stage, .artboard .signature-stage, .particle-stage #bg, .surface-still { position: absolute; inset: 0; width: 100%; height: 100%; }
-.particle-stage { touch-action: pan-y pinch-zoom; isolation: isolate; }
+.particle-stage { position: relative; height: clamp(380px, min(43vw, 63svh), 700px); touch-action: pan-y pinch-zoom; isolation: isolate; }
+.particle-stage #bg, .surface-still { position: absolute; inset: 0; width: 100%; height: 100%; }
 .particle-stage #bg { display: block; }
 .workbench { position: absolute; inset: 3% 2% 1%; pointer-events: none; }
 .surface-still { object-fit: contain; pointer-events: none; background: #000; }
 .particle-stage[data-surface="gpu"] .surface-still, .particle-stage[data-surface="canvas"] .surface-still { display: none; }
 :root[data-theme="dark"] .particle-stage { mix-blend-mode: screen; }
 :root:not([data-theme="dark"]) .particle-stage { filter: invert(1) hue-rotate(158deg); mix-blend-mode: multiply; }
-.artboard .signature-stage { aspect-ratio: auto; box-shadow: none; }
 .motion-figure .study-caption {
   display: flex; align-items: center; gap: 12px; min-height: 48px;
   margin: 10px 0 0; color: var(--muted); font: 500 .66rem/1.25 var(--mono);
 }
-.study-switch { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 25px; padding: 3px; margin-right: auto; }
-.study-switch button {
-  min-height: 32px; margin: 0; padding: 5px 13px; background: transparent; color: var(--muted);
-  border: 0; border-radius: 20px; font: 500 .68rem/1.2 var(--mono); cursor: pointer; white-space: nowrap;
-}
-.study-switch button:hover { color: var(--text); }
-.study-switch button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
+.study-name { margin-right: auto; }
 .pause-surface {
   flex: none; display: grid; place-items: center; width: 38px; height: 38px;
   border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--text); cursor: pointer;
@@ -73,7 +65,6 @@
 .pause-surface[data-paused="true"] span { width: 0; height: 0; border: 5px solid transparent; border-right: none; border-left: 8px solid currentColor; }
 .stir-hint { display: inline-flex; align-items: center; gap: 7px; }
 .cursor-glyph { width: 11px; height: 13px; background: currentColor; clip-path: polygon(0 0,100% 59%,60% 62%,40% 100%); }
-.motion-figure[data-active-study="lattice"] :is(.pause-surface,.stir-hint) { display: none; }
 .hero-foot {
   grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center;
   flex-wrap: wrap; gap: 10px 22px; margin-top: clamp(30px, 5vh, 64px); padding-block: 18px;
@@ -102,7 +93,7 @@
   .portfolio-home .hero .hero-kicker { font-size: .69rem; }
   .portfolio-home .hero-description { margin: 18px 0; max-width: 41ch; }
   .motion-figure { margin-top: 18px; }
-  .artboard { height: clamp(228px, 52vw, 355px); }
+  .particle-stage { height: clamp(228px, 52vw, 355px); }
   .motion-figure .study-caption { gap: 8px; margin-top: 0; }
   .hero-foot { margin-top: 18px; padding-block: 13px; font-size: .6rem; }
   .hero-foot > span:last-child { text-transform: none; letter-spacing: 0; }
@@ -117,7 +108,6 @@
   .portfolio-home .hero-description { font-size: 1rem; }
   .portfolio-home .hero .actions { gap: 15px; }
   .motion-figure { margin-top: 0; }
-  .artboard { height: clamp(255px, 48vw, 350px); }
+  .particle-stage { height: clamp(255px, 48vw, 350px); }
   .stir-hint { display: none; }
-  .study-switch button { padding-inline: 9px; }
 }

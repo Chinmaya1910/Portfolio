@@ -29,15 +29,13 @@ Open [http://localhost:8000/](http://localhost:8000/). The root `index.html` can
 | `assets/site.css` | Theme tokens, layout, components, and responsive styles |
 | `assets/theme.js` and `assets/site.js` | Theme persistence, mobile navigation, and deferred scene loading |
 | `assets/motion.js` and `assets/motion.css` | Section tracking, one-time reveals, timeline progress, and interaction styles |
-| `assets/hero-scene.js` | Renderer for the selectable Signal lattice view in the portfolio intro |
 | `assets/portfolio.css`, `assets/work-index.css`, `assets/work-index.js` | Responsive homepage artwork, project layout, and domain filters |
-| `assets/signal-assembly.webp` and `assets/signal-lattice.webp` | Static artwork for Signal to Structure |
 | `studies/index.html` | The three earlier, independently playable motion studies |
 | `assets/scene.js` | Canvas renderer for the three earlier studies |
 | `assets/signal-field.webp`, `assets/contour-route.webp`, `assets/query-layers.webp` | Static artwork for reduced motion or unavailable canvas |
 | `images/Chinmaya-Mallappa-Giriyappa-Resume.pdf` | Public-facing version of the current CV |
 
-The particle surface responds to pointer movement inside the intro. Its pause control follows the visitor’s reduced-motion preference on arrival. Choose **Signal lattice** to organize the alternate composition or trace a path through it.
+The particle surface responds to pointer movement inside the intro. Its pause control follows the visitor’s reduced-motion preference on arrival.
 
 ## Earlier portfolio motion design
 

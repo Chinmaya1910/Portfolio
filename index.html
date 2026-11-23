@@ -21,12 +21,12 @@
   <script src="assets/theme.js?v=3"></script>
   <link rel="stylesheet" href="assets/site.css?v=3">
   <link rel="stylesheet" href="assets/motion.css">
-  <link rel="stylesheet" href="assets/portfolio.css?v=2">
+  <link rel="stylesheet" href="assets/portfolio.css?v=3">
   <link rel="stylesheet" href="assets/work-index.css">
   <script defer src="assets/axon/vendor/three-0.150.1.min.js"></script>
   <script defer src="assets/axon/fluid.js?v=3"></script>
   <script defer src="assets/axon/surface.js?v=3"></script>
-  <script defer src="assets/site.js?v=3" data-scene="assets/hero-scene.js?v=2"></script>
+  <script defer src="assets/site.js?v=4"></script>
   <script defer src="assets/motion.js"></script>
   <script defer src="assets/work-index.js"></script>
 </head>
@@ -69,38 +69,13 @@
         </div>
       </div>
       <figure class="hero-figure motion-figure">
-        <div class="artboard">
-          <div class="particle-stage" id="surface-view" data-study-panel="surface">
-            <canvas id="bg" aria-hidden="true"></canvas>
-            <div class="workbench" aria-hidden="true"></div>
-            <img class="surface-still" src="assets/axon/surface-still.webp" alt="" width="750" height="750" fetchpriority="high">
-          </div>
-          <div class="scene-stage signature-stage" id="lattice-view" data-study-panel="lattice" data-scene-stage data-signature="field" hidden>
-            <img class="scene-poster" src="assets/signal-assembly.webp" data-ordered-poster="assets/signal-lattice.webp"
-              width="900" height="720" alt="" loading="lazy">
-            <svg class="trace-poster" viewBox="0 0 900 720" aria-hidden="true" focusable="false">
-              <path class="trace-field"
-                d="M206.7 595.3 L272.1 529.7 L447.0 620.1 L527.7 578.2 L450.5 550.8 L356.7 406.8 L305.1 233.8 L419.5 245.5 L478.4 256.3 L664.6 306.0" />
-              <path class="trace-ordered"
-                d="M256.6 468.3 L330.8 495.0 L408.0 522.8 L488.6 551.7 L489.4 464.8 L490.1 374.5 L491.0 280.4 L546.9 244.8 L599.3 211.3 L648.5 179.9" />
-            </svg>
-            <canvas class="scene-canvas" aria-hidden="true"></canvas>
-            <span class="scene-state" data-hero-state aria-live="polite">Signal field</span>
-            <div class="signature-actions" role="group" aria-label="Signal to Structure controls">
-              <button class="scene-button" type="button" data-hero-trace aria-pressed="false" hidden>
-                <span>Trace signal</span>
-              </button>
-              <button class="scene-button" type="button" data-hero-action hidden>
-                <span data-hero-label>Organize signals</span><span aria-hidden="true">↗</span>
-              </button>
-            </div>
-          </div>
+        <div class="particle-stage" id="surface-view">
+          <canvas id="bg" aria-hidden="true"></canvas>
+          <div class="workbench" aria-hidden="true"></div>
+          <img class="surface-still" src="assets/axon/surface-still.webp" alt="" width="750" height="750" fetchpriority="high">
         </div>
         <figcaption class="study-caption">
-          <div class="study-switch" role="group" aria-label="Interactive artwork" hidden>
-            <button type="button" data-study="surface" aria-pressed="true" aria-controls="surface-view">Particle surface</button>
-            <button type="button" data-study="lattice" aria-pressed="false" aria-controls="lattice-view">Signal lattice</button>
-          </div>
+          <span class="study-name">Particle surface</span>
           <span class="stir-hint" hidden><span class="cursor-glyph" aria-hidden="true"></span>Move to stir</span>
           <button type="button" data-pause-surface class="pause-surface" aria-label="Pause particle motion" hidden><span aria-hidden="true"></span></button>
         </figcaption>
