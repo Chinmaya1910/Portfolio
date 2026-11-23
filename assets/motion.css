@@ -25,7 +25,6 @@
 .site-header[data-scrolled] { box-shadow: 0 4px 14px #08152b12; }
 
 .hero h1 .hero-line { display: block; color: inherit; }
-.hero-line > span { color: var(--accent); }
 .project-card:focus-within { border-color: var(--accent); }
 .timeline { position: relative; }
 .timeline li[data-role="academic"]::before { border-radius: 2px; transform: rotate(45deg); }
@@ -53,7 +52,6 @@
     animation: name-reveal var(--reveal-speed) var(--ease) backwards;
   }
   .hero[data-intro] .hero-line:nth-child(2) { animation-delay: 50ms; }
-  .hero[data-intro] .hero-line:nth-child(3) { animation-delay: 100ms; }
   .hero[data-intro] .hero-description { animation-delay: 125ms; }
   .hero[data-intro] .actions { animation-delay: 170ms; }
 

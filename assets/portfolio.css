@@ -18,17 +18,17 @@
 }
 .role-rule { width: 30px; height: 2px; background: var(--accent); }
 .portfolio-home .hero h1 {
-  font-size: clamp(4.7rem, 7.55vw, 8.45rem);
+  font-size: clamp(4.7rem, 8.7vw, 9.25rem);
   font-weight: 640;
   letter-spacing: -.078em;
   line-height: .87;
 }
-.portfolio-home .hero-line:nth-child(2) {
+.portfolio-home .hero h1 .family-name {
   width: fit-content;
-  padding-right: .08em;
+  margin-top: .22em;
   color: var(--accent);
-  font: italic 400 1.06em/.99 'Baskervville', 'Baskerville', 'Times New Roman', serif;
-  letter-spacing: -.065em;
+  font: italic 400 .52em/1.09 'Baskervville', 'Baskerville', 'Times New Roman', serif;
+  letter-spacing: -.04em;
 }
 .portfolio-home .hero-description {
   max-width: 39ch;

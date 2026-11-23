@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <path id="tile" d="M11 4h5.25A1.75 1.75 0 0 1 18 5.75v10.5A1.75 1.75 0 0 1 16.25 18H5.75A1.75 1.75 0 0 1 4 16.25V11a7 7 0 0 1 7-7Z"/>
+  </defs>
+  <g fill="#a176df" transform="rotate(-12 20 20)">
+    <use href="#tile"/>
+    <use href="#tile" transform="rotate(90 20 20)"/>
+    <use href="#tile" transform="rotate(180 20 20)"/>
+    <use href="#tile" transform="rotate(270 20 20)"/>
+  </g>
+</svg>
